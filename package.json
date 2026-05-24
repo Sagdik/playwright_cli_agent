@@ -12,6 +12,8 @@
     "test:firefox": "playwright test --project=firefox",
     "test:webkit": "playwright test --project=webkit",
     "test:report": "playwright show-report",
+    "bdd": "cucumber-js",
+    "bdd:report": "open cucumber-report.html",
     "codegen": "playwright codegen",
     "lint": "eslint .",
     "format": "prettier --write ."
@@ -25,10 +27,15 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@cucumber/cucumber": "^12.9.0",
+    "@cucumber/gherkin-utils": "^11.0.0",
+    "@cucumber/pretty-formatter": "^3.3.1",
     "@playwright/test": "^1.48.0",
+    "@types/cucumber": "^6.0.1",
     "@types/node": "^20.0.0",
-    "typescript": "^5.0.0",
     "eslint": "^8.0.0",
-    "prettier": "^3.0.0"
+    "prettier": "^3.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.0.0"
   }
 }
