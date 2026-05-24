@@ -1,76 +1,104 @@
 # Playwright CLI Testing Framework
 
-A complete Playwright testing framework setup with TypeScript support for end-to-end testing across Chromium, Firefox, and WebKit browsers.
+A complete **Playwright + Cucumber BDD Test Automation Framework** that converts user stories into executable BDD scenarios and test automation code.
 
-## Prerequisites
+## 📖 Documentation
+
+- **[testframework.md](./testframework.md)** - Complete framework guide with workflow, best practices, and examples
+- **[README.md](./README.md)** - This file (quick start)
+- **.github/copilot-instructions.md** - Copilot AI integration guide
+
+## Quick Start
+
+### Prerequisites
 
 - Node.js 18+ 
 - npm or yarn
+- Git
 
-## Installation
+### Installation
 
 Install all dependencies:
 
 ```bash
 npm install
+npx playwright install
 ```
 
 This will install:
 - `@playwright/test` - Playwright testing library
+- `@cucumber/cucumber` - BDD framework
 - `typescript` - TypeScript support
+- `ts-node` - TypeScript runtime
 - `eslint` - Code linting
 - `prettier` - Code formatting
 
-## Project Structure
+### Project Structure
 
 ```
-├── tests/                  # Test files
-│   └── example.spec.ts    # Example test suite
-├── playwright.config.ts    # Playwright configuration
-├── tsconfig.json          # TypeScript configuration
-├── package.json           # Project dependencies
-└── README.md              # This file
+├── stories/                        # User stories (source)
+│   └── stories.md                 # Story input files
+├── features/                       # Cucumber BDD features
+│   ├── checkout.feature           # Gherkin scenarios
+│   └── step_definitions/
+│       └── checkout.steps.ts      # Step implementations
+├── tests/                          # Playwright tests
+│   ├── checkout.spec.ts           # Test specifications
+│   ├── example.spec.ts
+│   └── api.spec.ts
+├── playwright.config.ts            # Playwright configuration
+├── cucumber.js                     # Cucumber configuration
+├── tsconfig.json                   # TypeScript configuration
+├── package.json                    # Dependencies & scripts
+├── cucumber-report.html            # Test report (auto-generated)
+├── testframework.md                # Framework guide (READ THIS!)
+└── README.md                       # This file
 ```
 
 ## Running Tests
 
-### Run all tests
+### Playwright Tests
 ```bash
-npm test
+npm test                   # Run all tests
+npm run test:ui            # Interactive UI mode
+npm run test:headed        # Watch in browser
+npm run test:debug         # Debug mode
+npm run test:chrome        # Chromium only
+npm run test:firefox       # Firefox only
+npm run test:webkit        # WebKit only
+npm run test:report        # View HTML report
 ```
 
-### Run tests in UI mode (interactive)
+### BDD Tests (Cucumber/Gherkin)
 ```bash
-npm run test:ui
+npm run bdd                # Run all Cucumber scenarios
+npm run bdd -- features/[file].feature  # Run specific feature
+npm run bdd:report         # Open HTML report
 ```
 
-### Run tests in headed mode (see browser)
-```bash
-npm run test:headed
-```
+## Workflow: Story → Feature → Tests
 
-### Run tests in debug mode
-```bash
-npm run test:debug
-```
+### 1. Create a User Story
+Create a file in `stories/` folder following the format in [testframework.md](./testframework.md).
 
-### Run tests for specific browser
-```bash
-npm run test:chrome      # Chromium only
-npm run test:firefox     # Firefox only
-npm run test:webkit      # WebKit only
-```
+### 2. Convert Story to Cucumber Feature
+Create a `.feature` file in `features/` folder with Gherkin scenarios.
 
-### View test report
+### 3. Write Step Definitions
+Implement step definitions in `features/step_definitions/*.steps.ts`.
+
+### 4. Run BDD Tests
 ```bash
-npm run test:report
+npm run bdd
+npm run bdd:report
 ```
 
 ## Writing Tests
 
+### Playwright Tests
 Tests are located in the `tests/` directory with `.spec.ts` extension.
 
-Example test structure:
+Example:
 ```typescript
 import { test, expect } from '@playwright/test';
 
@@ -84,6 +112,9 @@ test.describe('My Test Suite', () => {
   });
 });
 ```
+
+### BDD Tests (Cucumber)
+See [testframework.md](./testframework.md) for complete BDD workflow with examples.
 
 ## Code Generation
 
