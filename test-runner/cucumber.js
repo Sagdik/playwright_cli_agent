@@ -1,16 +1,13 @@
-// Main Cucumber Configuration
-// This uses the test-runner configuration with POM and Hooks
-
 module.exports = {
   default: {
-    // Load hooks and step definitions
+    // Hooks will be loaded automatically
     require: [
       'hooks/**/*.ts',
       'features/step_definitions/**/*.ts'
     ],
     requireModule: ['ts-node/register'],
     
-    // Report generation
+    // Format options for reports
     format: [
       'progress-bar',
       'html:test-output/cucumber-report.html',
@@ -18,20 +15,34 @@ module.exports = {
     ],
     
     formatOptions: {
-      snippetInterface: 'async-await'
+      snippetInterface: 'async-await',
+      colorsEnabled: true
     },
     
-    // Feature files location
+    // Feature paths
     features: ['features/**/*.feature'],
     
-    // Parallel execution (set to 1 for debugging)
+    // Parallel execution
     parallel: 4,
     
-    // Fail on pending/undefined steps
-    strict: true
+    // Retry failed scenarios (optional)
+    // retry: 1,
+    
+    // Tags filter (optional)
+    // tags: '@smoke and not @skip',
+    
+    // Dry run (no actual execution)
+    // dryRun: false,
+    
+    // Fail on pending steps
+    strict: true,
+    
+    // Publish results to Cucumber Cloud (optional)
+    // publish: false,
+    // publishQuiet: true
   },
 
-  // Smoke tests configuration
+  // Configuration for specific test runs
   smoke: {
     require: [
       'hooks/**/*.ts',
@@ -41,11 +52,9 @@ module.exports = {
     format: ['progress-bar', 'html:test-output/smoke-report.html'],
     features: ['features/**/*.feature'],
     tags: '@smoke',
-    parallel: 2,
-    strict: true
+    parallel: 2
   },
 
-  // CI/CD configuration
   ci: {
     require: [
       'hooks/**/*.ts',
@@ -59,20 +68,7 @@ module.exports = {
     ],
     features: ['features/**/*.feature'],
     parallel: 1,
-    strict: true
-  },
-
-  // Debug configuration (single-threaded, headless: false)
-  debug: {
-    require: [
-      'hooks/**/*.ts',
-      'features/step_definitions/**/*.ts'
-    ],
-    requireModule: ['ts-node/register'],
-    format: ['progress-bar'],
-    features: ['features/**/*.feature'],
-    parallel: 1,
-    strict: true
+    strict: true,
+    dryRun: false
   }
 };
-

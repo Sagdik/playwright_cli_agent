@@ -4,19 +4,20 @@
   "description": "Playwright CLI testing framework",
   "main": "index.js",
   "scripts": {
+    "bdd": "cucumber-js",
+    "bdd:smoke": "cucumber-js --profile smoke",
+    "bdd:debug": "HEADLESS=false cucumber-js --profile debug",
+    "bdd:ci": "cucumber-js --profile ci",
+    "bdd:report": "open test-output/cucumber-report.html",
     "test": "playwright test",
     "test:ui": "playwright test --ui",
     "test:debug": "playwright test --debug",
     "test:headed": "playwright test --headed",
-    "test:chrome": "playwright test --project=chromium",
-    "test:firefox": "playwright test --project=firefox",
-    "test:webkit": "playwright test --project=webkit",
     "test:report": "playwright show-report",
-    "bdd": "cucumber-js",
-    "bdd:report": "open cucumber-report.html",
-    "codegen": "playwright codegen",
+    "codegen": "playwright codegen https://www.saucedemo.com",
     "lint": "eslint .",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "clean": "rm -rf test-output && mkdir -p test-output/screenshots"
   },
   "keywords": [
     "playwright",
